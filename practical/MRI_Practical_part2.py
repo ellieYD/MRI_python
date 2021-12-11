@@ -168,47 +168,45 @@ def rotation():
     plt.title("Fourier transform of the rotated image")
     plt.show()
 
+def trim():
+    numpy.seterr(divide='ignore')
+    s4 = functions.s4()
+    for i in range(s4[1].size):
+        s4[:, i] = np.roll(s4[:, i], -20)  # shift in y-axis by 20
+    for i in range(s4[1].size):
+        s4[i, :] = np.roll(s4[i, :], 40)  # shift in x-axis by 40
 
-numpy.seterr(divide = 'ignore')
-s4 = functions.s4()
-for i in range (s4[1].size):
-    s4[:, i] = np.roll(s4[:, i], -20) #shift in y-axis by 20
-for i in range (s4[1].size):
-    s4[i, :] = np.roll(s4[i, :], 40) #shift in x-axis by 40
+    s4_fourier = np.fft.fftshift(np.fft.fft2(functions.s4()))
+    s4_shifted_fourier = np.fft.fftshift(np.fft.fft2(s4))
+    s4_shifted_trimmed_fourier = np.fft.fftshift(np.fft.fft2(s4))
+    s4_shifted_trimmed_fourier[1:80:1, :] = 0
+    s4_shifted_trimmed = np.fft.ifft2(s4_shifted_trimmed_fourier)
 
-s4_fourier = np.fft.fftshift(np.fft.fft2(functions.s4()))
-s4_shifted_fourier = np.fft.fftshift(np.fft.fft2(s4))
-s4_shifted_trimmed_fourier = s4_shifted_fourier
-s4_shifted_trimmed_fourier[1:80:1, :] = 0
-s4_shifted_trimmed = np.fft.ifft2(s4_shifted_trimmed_fourier)
-#s4_shifted_fourier = np.fft.fftshift(np.fft.fft2(s4))
+    plt.figure()
+    plt.gray()
+    plt.subplot(161)
+    plt.imshow(functions.s4())
+    plt.title("Original image")
 
-plt.figure()
-plt.gray()
-plt.subplot(161)
-plt.imshow(functions.s4())
-plt.title("Original image")
+    plt.subplot(162)
+    plt.imshow(np.abs(np.log(s4_fourier)))
+    plt.title("Fourier transform of the original image")
 
-plt.subplot(162)
-plt.imshow(np.abs(np.log(s4_fourier)))
-plt.title("Fourier transform of the original image")
+    plt.subplot(163)
+    plt.imshow(s4)
+    plt.title("Shifted image")
 
-plt.subplot(163)
-plt.imshow(s4)
-plt.title("Shifted image")
+    plt.subplot(164)
+    plt.imshow(np.abs(np.log(s4_shifted_fourier)))
+    plt.title("Fourier transform of the shifted image")
 
-plt.subplot(164)
-plt.imshow(np.abs(np.log(s4_shifted_fourier)))
-plt.title("Fourier transform of the shifted image")
+    plt.subplot(165)
+    plt.imshow(np.abs(s4_shifted_trimmed))
+    plt.title("Shifted and trimmed image")
 
-plt.subplot(165)
-plt.imshow(np.abs(s4_shifted_trimmed))
-plt.title("Shifted and trimmed image")
-
-plt.subplot(166)
-plt.imshow(np.abs(np.log(s4_shifted_trimmed_fourier)))
-plt.title("Fourier transform of the shifted and trimmed")
-plt.show()
-numpy.seterr(divide = 'warn')
-
+    plt.subplot(166)
+    plt.imshow(np.abs(np.log(s4_shifted_trimmed_fourier)))
+    plt.title("Fourier transform of the shifted and trimmed")
+    plt.show()
+    numpy.seterr(divide='warn')
 
