@@ -128,3 +128,7 @@ def CNR():
     right_clicks_signal.clear()
     CNR_tissue = np.abs((tissue1_mean-tissue2_mean) / backgourd_std)
     print(CNR_tissue)
+
+SNR()
+SNR()
+CNR()
