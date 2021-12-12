@@ -1,3 +1,7 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+from matplotlib.animation import FuncAnimation
 from cv2 import magnitude
 from matplotlib import pyplot as plt
 import numpy as np
@@ -50,7 +54,6 @@ for i in range(1, excitation):
         csf[i,:] = matmul(csf[i,:],rotation_p)
 
 
-
 x_axis = np.arange(0,excitation,1)
 magnitude_white = np.sqrt(white[:,0]*white[:,0]+white[:,1]*white[:,1])
 magnitude_csf = np.sqrt(csf[:,0]*csf[:,0]+csf[:,1]*csf[:,1])
@@ -71,4 +74,31 @@ plt.show()
 
 
 
+fig, ax = plt.subplots(subplot_kw=dict(projection="3d"))
 
+def get_arrow(theta):
+    x = 0
+    y = 0
+    z = 0
+    u = white[theta,0]
+    v = white[theta,1]
+    w = white[theta,2]
+    return x,y,z,u,v,w
+
+quiver = ax.quiver(*get_arrow(0))
+
+ax.set_xlim(-1, 1)
+ax.set_ylim(-1, 1)
+ax.set_zlim(-1, 1)
+ax.set_xlabel('X axis')
+ax.set_ylabel('Y axis')
+ax.set_zlabel('Z axis')
+
+
+def update(theta):
+    global quiver
+    quiver.remove()
+    quiver = ax.quiver(*get_arrow(theta))
+
+ani = FuncAnimation(fig, update, frames=np.linspace(0,1600,num =1600).astype(int), interval=500)
+plt.show()

@@ -31,7 +31,7 @@ for k in range(sample_size):
 plt.subplot(1, 2, 2)
 DFT = np.abs(np.real(discrete_fourier_transform))
 discrete_fourier_transform_axis = np.arange(-sample_size/2, sample_size/2, 1)
-DFT_shifted = discrete_fourier_transform;
+DFT_shifted = discrete_fourier_transform
 
 mid = int(sample_size/2)
 if mid%2 == 0:
