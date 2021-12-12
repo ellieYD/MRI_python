@@ -1,5 +1,8 @@
+import cv2
 import numpy as np
+from PIL.Image import Image
 from matplotlib import pyplot as plt
+from numpy import double
 
 x = np.arange(-4, 4, 0.05)
 y = np.arange(-4, 4, 0.05)
@@ -13,3 +16,12 @@ def s4():
     choicelist = [1, 0]
     s4 = np.select(condlist, choicelist)
     return s4
+
+def mouse_callback(event, x, y, flags, params):
+    if event == 2:
+        global right_clicks_signal
+        right_clicks_signal.append([x, y])
+
+
+
+

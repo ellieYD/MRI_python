@@ -1,3 +1,6 @@
+import copy
+import math
+
 import matplotlib.pyplot as plt
 import numpy
 import numpy as np
@@ -12,6 +15,7 @@ def fouriertransform_s1():
     plt.imshow(abs(s1), 'Greys_r')
     plt.title("Fourier transform of s1")
     plt.show()
+    return plt.figure(1)
 
 
 # The result is consistent with the expectation since the image is made out
@@ -28,7 +32,7 @@ def parta():
     # The bright spot at the origin is the DC offset
     phase = np.angle(MRIimage_raw)
 
-    plt.figure()
+    plt.figure(1)
 
     plt.subplot(131)
     plt.gray()
@@ -45,6 +49,7 @@ def parta():
     plt.title("Its Fourier transform phase")
     plt.gray()
     plt.show()
+    return plt.figure(1)
 
 def lowpass():
     rect = np.zeros([256, 256])
@@ -55,7 +60,7 @@ def lowpass():
     F1_lowpass = F1*rect
     f1_lowpass = np.fft.ifft2(np.fft.fftshift(F1_lowpass))
 
-    plt.figure()
+    plt.figure(1)
     plt.gray()
     plt.subplot(141)
     plt.imshow(rect)
@@ -70,6 +75,7 @@ def lowpass():
     plt.imshow(np.abs(f1_lowpass))
     plt.title("Inverse fourier transform")
     plt.show()
+    return plt.figure(1)
 
 
 def highpass():
@@ -82,7 +88,7 @@ def highpass():
     F1_highpass = F1*rect
     f1_highpass = np.fft.ifft2(np.fft.fftshift(F1_highpass))
 
-    plt.figure()
+    plt.figure(1)
     plt.gray()
     plt.subplot(141)
     plt.imshow(rect)
@@ -97,6 +103,7 @@ def highpass():
     plt.imshow(np.abs(f1_highpass))
     plt.title("Inverse fourier transform")
     plt.show()
+    return plt.figure(1)
 
 def halfkspace():
     f1 = Image.open('D:/Workspace/2021 Year Project/MRI python/resources/head_mri.jpg')
@@ -107,7 +114,7 @@ def halfkspace():
     # python: start stop step, matlab: start step stop
     F1_half_kspace = F1
     f1_half_kspace = np.fft.ifft2(np.fft.fftshift(F1_half_kspace))
-    plt.figure()
+    plt.figure(1)
     plt.gray()
     plt.subplot(131)
     plt.imshow(f1)
@@ -119,6 +126,7 @@ def halfkspace():
     plt.imshow(np.abs(f1_half_kspace))
     plt.title("Image domain")
     plt.show()
+    return plt.figure(1)
     # This decreases the k space resolution of the image, which means decreased
     # FOV. So the image will be aliased
 
@@ -130,7 +138,7 @@ def shift():
         s4[i, :] = np.roll(s4[i, :], 40) #shift in x-axis by 40
     s4_fourier = np.fft.fftshift(np.fft.fft2(functions.s4()))
     s4_shifted_fourier = np.fft.fftshift(np.fft.fft2(s4))
-    plt.figure()
+    plt.figure(1)
     plt.gray()
     plt.subplot(141)
     plt.imshow(functions.s4())
@@ -145,6 +153,7 @@ def shift():
     plt.imshow(np.abs(np.log(s4_shifted_fourier)))
     plt.title("Fourier transform of the shifted image")
     plt.show()
+    return plt.figure(1)
 
 
 
@@ -152,7 +161,7 @@ def rotation():
     s4_20 = ndimage.rotate(functions.s4(), 20, reshape=False)
     s4_fourier = np.fft.fftshift(np.fft.fft2(functions.s4()))
     s4_20_fourier = np.fft.fftshift(np.fft.fft2(s4_20))
-    plt.figure()
+    plt.figure(1)
     plt.gray()
     plt.subplot(141)
     plt.imshow(functions.s4())
@@ -167,46 +176,50 @@ def rotation():
     plt.imshow(np.abs(np.log(s4_20_fourier)))
     plt.title("Fourier transform of the rotated image")
     plt.show()
+    return plt.figure(1)
 
 def trim():
     numpy.seterr(divide='ignore')
     s4 = functions.s4()
     for i in range(s4[1].size):
-        s4[:, i] = np.roll(s4[:, i], -20)  # shift in y-axis by 20
+        s4[:, i] = np.roll(s4[:, i], 20)  # shift in y-axis by 20
     for i in range(s4[1].size):
         s4[i, :] = np.roll(s4[i, :], 40)  # shift in x-axis by 40
 
     s4_fourier = np.fft.fftshift(np.fft.fft2(functions.s4()))
     s4_shifted_fourier = np.fft.fftshift(np.fft.fft2(s4))
     s4_shifted_trimmed_fourier = np.fft.fftshift(np.fft.fft2(s4))
-    s4_shifted_trimmed_fourier[1:80:1, :] = 0
+    s4_shifted_trimmed_fourier[:80:1, :] = 0
     s4_shifted_trimmed = np.fft.ifft2(s4_shifted_trimmed_fourier)
 
-    plt.figure()
+    plt.figure(1)
     plt.gray()
-    plt.subplot(161)
+    plt.subplot(231)
     plt.imshow(functions.s4())
     plt.title("Original image")
 
-    plt.subplot(162)
+    plt.subplot(234)
     plt.imshow(np.abs(np.log(s4_fourier)))
     plt.title("Fourier transform of the original image")
 
-    plt.subplot(163)
+    plt.subplot(232)
     plt.imshow(s4)
     plt.title("Shifted image")
 
-    plt.subplot(164)
+    plt.subplot(235)
     plt.imshow(np.abs(np.log(s4_shifted_fourier)))
     plt.title("Fourier transform of the shifted image")
 
-    plt.subplot(165)
+    plt.subplot(233)
     plt.imshow(np.abs(s4_shifted_trimmed))
     plt.title("Shifted and trimmed image")
 
-    plt.subplot(166)
+    plt.subplot(236)
     plt.imshow(np.abs(np.log(s4_shifted_trimmed_fourier)))
     plt.title("Fourier transform of the shifted and trimmed")
+
     plt.show()
     numpy.seterr(divide='warn')
+    return plt.figure(1)
 
+trim()

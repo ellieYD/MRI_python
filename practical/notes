@@ -1,0 +1,6 @@
+Exception handling
+1. Dividing by zero
+numpy.seterr(divide='ignore')
+numpy.seterr(divide='warn')
+
+
