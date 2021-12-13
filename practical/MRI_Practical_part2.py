@@ -78,7 +78,7 @@ def highpass():
     rect[112:144, 112:144] = 1
     rect = 1 - rect
     # high pass rect function
-    f1 = Image.open('D:/Workspace/2021 Year Project/MRI python/resources/head_mri.jpg')
+    f1 = Image.open('../resources/head_mri.jpg')
     F1 = np.fft.fftshift(np.fft.fft2(f1))
     F1_highpass = F1*rect
     f1_highpass = np.fft.ifft2(np.fft.fftshift(F1_highpass))
@@ -101,7 +101,7 @@ def highpass():
     return plt.figure(1)
 
 def halfkspace():
-    f1 = Image.open('D:/Workspace/2021 Year Project/MRI python/resources/head_mri.jpg')
+    f1 = Image.open('../resources/head_mri.jpg')
     F1 = np.fft.fftshift(np.fft.fft2(f1))
     F2 = np.log(F1)
     F2[1:256:2, :] = 0

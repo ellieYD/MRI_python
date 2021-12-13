@@ -5,9 +5,9 @@ import numpy as np
 def transferfunctions():
     f1 = Image.open('../resources/shepp256.png')
     F1 = np.fft.fftshift(np.fft.fft2(f1))
-    h1 = Image.open('D:/Workspace/2021 Year Project/MRI python/resources/h1.png')
-    h2 = Image.open('D:/Workspace/2021 Year Project/MRI python/resources/h2.png')
-    h3 = Image.open('D:/Workspace/2021 Year Project/MRI python/resources/h3.png')
+    h1 = Image.open('../resources/h1.png')
+    h2 = Image.open('../resources/h2.png')
+    h3 = Image.open('../resources/h3.png')
     H1 = np.fft.fftshift(np.fft.fft2(h1))
     H2 = np.fft.fftshift(np.fft.fft2(h2))
     H3 = np.fft.fftshift(np.fft.fft2(h3))
@@ -47,11 +47,11 @@ def transferfunctions():
     return plt.figure(1)
 
 def cascade():
-    f1 = Image.open('D:/Workspace/2021 Year Project/MRI python/resources/shepp256.png')
+    f1 = Image.open('../resources/shepp256.png')
     F1 = np.fft.fftshift(np.fft.fft2(f1))
-    h1 = Image.open('D:/Workspace/2021 Year Project/MRI python/resources/h1.png')
-    h2 = Image.open('D:/Workspace/2021 Year Project/MRI python/resources/h2.png')
-    h3 = Image.open('D:/Workspace/2021 Year Project/MRI python/resources/h3.png')
+    h1 = Image.open('../resources/h1.png')
+    h2 = Image.open('../resources/h2.png')
+    h3 = Image.open('../resources/h3.png')
     H1 = np.fft.fftshift(np.fft.fft2(h1))
     H2 = np.fft.fftshift(np.fft.fft2(h2))
     H3 = np.fft.fftshift(np.fft.fft2(h3))
@@ -92,9 +92,9 @@ def cascade():
 
 def exponentialdecay():
     numpy.seterr(divide='ignore')
-    H4 = Image.open('D:/Workspace/2021 Year Project/MRI python/resources/H4.png')
+    H4 = Image.open('../resources/H4.png')
     h4 = np.fft.ifftshift(np.fft.ifft2(H4))
-    f1 = Image.open('D:/Workspace/2021 Year Project/MRI python/resources/shepp256.png')
+    f1 = Image.open('../resources/shepp256.png')
     F1 = np.fft.fftshift(np.fft.fft2(f1))
     F1H4 = H4*F1
     f1h4 = np.fft.ifft2(F1H4)

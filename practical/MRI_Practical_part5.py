@@ -6,7 +6,7 @@ from numpy import double
 
 
 
-img = Image.open('D:/Workspace/2021 Year Project/MRI python/resources/shepp256.png')
+img = Image.open('../resources/shepp256.png')
 img = double(img)
 img_fourier = np.fft.fftshift(np.fft.fft2(img))
 normrnd = np.random.normal(0, 5000, [256, 256])

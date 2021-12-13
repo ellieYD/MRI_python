@@ -17,9 +17,9 @@ def mouse_callback(event, x, y, flags, params):
         right_clicks_signal.append([x, y])
 
 def SNR():
-    imgcv = cv2.imread('D:/Workspace/2021 Year Project/MRI python/resources/shepp256.png',0)
+    imgcv = cv2.imread('../resources/shepp256.png',0)
     imgcv = cv2.normalize(imgcv.astype('float'), None, 0.0, 1.0, cv2.NORM_MINMAX)
-    img = Image.open('D:/Workspace/2021 Year Project/MRI python/resources/shepp256.png')
+    img = Image.open('../resources/shepp256.png')
     img = double(img)
     img_fourier = np.fft.fftshift(np.fft.fft2(img))
     poissrnd_fourier = np.fft.fftshift(np.fft.fft2(poissrnd))
@@ -65,9 +65,9 @@ def SNR():
 
 
 def CNR():
-    imgcv = cv2.imread('D:/Workspace/2021 Year Project/MRI python/resources/shepp256.png',0)
+    imgcv = cv2.imread('../resources/shepp256.png',0)
     imgcv = cv2.normalize(imgcv.astype('float'), None, 0.0, 1.0, cv2.NORM_MINMAX)
-    img = Image.open('D:/Workspace/2021 Year Project/MRI python/resources/shepp256.png')
+    img = Image.open('../resources/shepp256.png')
     img = double(img)
     img_fourier = np.fft.fftshift(np.fft.fft2(img))
     poissrnd_fourier = np.fft.fftshift(np.fft.fft2(poissrnd))
