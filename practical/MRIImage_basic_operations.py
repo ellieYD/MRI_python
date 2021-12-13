@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import matplotlib.image as img
 # read in the file
 # put any mri data in dicom
-MRIimage_raw = pydicom.read_file('D:/Workspace/2021 Year Project/MRI python/resources/MR000001')
+MRIimage_raw = pydicom.read_file('../resources/MR000001')
 
 
 #read the dicom file

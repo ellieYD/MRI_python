@@ -1,14 +1,9 @@
-
 import matplotlib.pyplot as plt
 import numpy
-import numpy as np
 from PIL import Image
 import numpy as np
-from practical import functions
-from scipy import ndimage, misc
-
 def transferfunctions():
-    f1 = Image.open('D:/Workspace/2021 Year Project/MRI python/resources/shepp256.png')
+    f1 = Image.open('../resources/shepp256.png')
     F1 = np.fft.fftshift(np.fft.fft2(f1))
     h1 = Image.open('D:/Workspace/2021 Year Project/MRI python/resources/h1.png')
     h2 = Image.open('D:/Workspace/2021 Year Project/MRI python/resources/h2.png')
@@ -126,3 +121,10 @@ def exponentialdecay():
     plt.show()
     numpy.seterr(divide='warn')
     return plt.figure(1)
+
+
+if __name__ == "__main__":
+    transferfunctions()
+    cascade()
+    exponentialdecay()
+

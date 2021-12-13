@@ -1,13 +1,9 @@
-import copy
-import math
-
 import matplotlib.pyplot as plt
 import numpy
-import numpy as np
 from PIL import Image
 import numpy as np
 from practical import functions
-from scipy import ndimage, misc
+from scipy import ndimage
 
 def fouriertransform_s1():
     s1 = np.fft.fftshift(np.fft.fft2(functions.s1()))
@@ -17,8 +13,7 @@ def fouriertransform_s1():
     plt.show()
     return plt.figure(1)
 
-
-# The result is consistent with the expectation since the image is made out
+# The result is consistent with the expectation since the image is made out of
 # low frequency components, so the result will be close to the origin of the
 # k-space
 
@@ -55,7 +50,7 @@ def lowpass():
     rect = np.zeros([256, 256])
     rect[112:144, 112:144] = 1
     # low pass rect function
-    f1 = Image.open('D:/Workspace/2021 Year Project/MRI python/resources/head_mri.jpg')
+    f1 = Image.open('../resources/head_mri.jpg')
     F1 = np.fft.fftshift(np.fft.fft2(f1))
     F1_lowpass = F1*rect
     f1_lowpass = np.fft.ifft2(np.fft.fftshift(F1_lowpass))
@@ -70,7 +65,7 @@ def lowpass():
     plt.title("Original image")
     plt.subplot(143)
     plt.imshow(np.log(np.abs(F1_lowpass)))
-    plt.title("Convolution in K-space")
+    plt.title("Convolution")
     plt.subplot(144)
     plt.imshow(np.abs(f1_lowpass))
     plt.title("Inverse fourier transform")
@@ -98,7 +93,7 @@ def highpass():
     plt.title("Original image")
     plt.subplot(143)
     plt.imshow(np.log(np.abs(F1_highpass)))
-    plt.title("Convolution with highpass")
+    plt.title("Convolution")
     plt.subplot(144)
     plt.imshow(np.abs(f1_highpass))
     plt.title("Inverse fourier transform")
@@ -222,4 +217,12 @@ def trim():
     numpy.seterr(divide='warn')
     return plt.figure(1)
 
-trim()
+if __name__ == "__main__":
+    fouriertransform_s1()
+    parta()
+    lowpass()
+    highpass()
+    halfkspace()
+    shift()
+    rotation()
+    trim()

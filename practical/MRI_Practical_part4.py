@@ -1,17 +1,12 @@
-import numpy as np
-import matplotlib.pyplot as plt
-import numpy
-import numpy as np
 from PIL import Image
 import numpy as np
-from cv2 import CV_64FC1
 from numpy import double
-
-from practical import functions
-from scipy import ndimage, misc
-import urllib
 import cv2
-from win32api import GetSystemMetrics
+
+# RIGHT CLICK on the image NOT LEFT, you can click as many time as you want
+# simply close the window for the next instruction.
+# The results will be printed out in the terminal
+# the window size is of 5 pixels, so be careful when you select the area
 
 poissrnd = np.random.poisson(80,256*256)
 poissrnd = np.reshape(poissrnd,(256,256))
@@ -64,7 +59,7 @@ def SNR():
     backgourd_std = np.std(noise)
     right_clicks_signal.clear()
     SNR_tissue = signal_mean / backgourd_std
-    print(SNR_tissue)
+    print("SNR of tissue: ",SNR_tissue)
 
 
 
@@ -127,8 +122,9 @@ def CNR():
     backgourd_std = np.std(noise)
     right_clicks_signal.clear()
     CNR_tissue = np.abs((tissue1_mean-tissue2_mean) / backgourd_std)
-    print(CNR_tissue)
+    print("CNR: ",CNR_tissue)
 
-SNR()
-SNR()
-CNR()
+if __name__ == "__main__":
+    SNR()
+    SNR()
+    CNR()

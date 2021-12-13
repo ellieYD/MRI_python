@@ -1,9 +1,5 @@
-import math
-
 import numpy as np
-import nx as nx
 from matplotlib import pyplot as plt
-from numpy import double
 
 x = np.arange(-4, 4, 0.05)
 y = np.arange(-4, 4, 0.05)
@@ -12,7 +8,7 @@ def intro():
     s1 = np.exp(-np.pi * (pow(xx, 2) + pow(yy, 2)))
     plt.figure(1)
     plt.contourf(x, y, s1)
-    plt.set_cmap('Greys_r')
+    plt.gray()
     plt.title("Initial setup")
     plt.show()
 
@@ -84,6 +80,7 @@ def parte():
     plt.set_cmap('Greys_r')
     plt.title("part e imaginary kx=1 ky =1")
     plt.show()
+
 # kx determines the frequency in x-axis and ky determines the frequency in y-axis in K-space
 # kx and ky together determines the angle in the fourier domain.
 
@@ -99,5 +96,11 @@ def rectwin():
     plt.set_cmap('Greys_r')
     plt.title("part e rect")
     plt.show()
+
+if __name__ == "__main__":
+    intro()
+    parta()
+    parte()
+    rectwin()
 
 
